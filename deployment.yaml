@@ -83,7 +83,7 @@ spec:
     spec:
       containers:
       - name: app-container
-        image: lkapilcloud/testin:v1
+        image: sanyo123/myapp:latest
         ports:
         - containerPort: 3000
 ...
