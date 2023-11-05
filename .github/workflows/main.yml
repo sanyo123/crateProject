@@ -14,16 +14,16 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Build Docker image
-      run: docker build -t lkapilcloud/myapp:latest .
+      run: docker build -t sanyo123/myapp:latest .
 
     - name: Provide tag to image
-      run: docker tag lkapilcloud/myapp:latest lkapilcloud/myapp:latest
+      run: docker tag sanyo123/myapp:latest sanyo123/myapp:latest
 
     - name: Login to Docker Hub
       run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
 
     - name: Push Docker image
-      run: docker push lkapilcloud/myapp:latest
+      run: docker push sanyo123/myapp:latest
 
     - name: Set up kubectl
       uses: steebchen/kubectl@v2.0.0
@@ -53,4 +53,5 @@ jobs:
 
     - name: Run Tests
       run: |
-        # Add commands to run tests here
+       # Wait for the deployment to be ready
+        kubectl rollout status deployment/myapp-deployment -n mynamespace --timeout=60s
